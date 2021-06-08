@@ -73,3 +73,5 @@ system(cmd)
 
 # Delete the parts that made up the whole
 filenames.each { |f| File.delete(f) }
+
+puts "Done assembly and cleanup!"
