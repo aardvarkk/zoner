@@ -3,7 +3,7 @@
 require 'faraday'
 
 <<-sh
-ruby zoner.rb 108000
+ruby zoner.rb 1800
 sh
 
 recordingDurationSecs = ARGV[0].to_i
