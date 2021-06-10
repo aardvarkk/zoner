@@ -35,6 +35,7 @@ Dir.mkdir(dirName)
 while Time.now <= endTime
   # Get the block info
   blockResponse = Faraday.get(sessionIdUrl)
+  puts blockResponse.body
 
   # Get target duration
   targetDuration = blockResponse.body.scan(/TARGETDURATION:(\d+)/).flatten.first.to_i
@@ -42,7 +43,7 @@ while Time.now <= endTime
 
   # Get the relevant URLs
   urls = getUrls(blockResponse.body)
-  puts urls
+  puts "Found URLS: #{urls}"
 
   # Walk through URLs and save ones we don't have
   urls.each do |url|
