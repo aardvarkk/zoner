@@ -9,11 +9,11 @@ sh
 recordingDurationSecs = ARGV[0].to_i
 targetDuration = nil
 
-def toFormat(time)
+def to_format(time)
   return time.utc.strftime('%Y%m%dT%H%M%SZ')
 end
 
-def getUrls(body)
+def get_urls(body)
   return body.scan(/^(.*Z\.aac)$/).flatten
 end
 
@@ -25,7 +25,7 @@ puts sessionIdUrl
 # Determine recording duration
 startTime = Time.now
 endTime   = startTime + recordingDurationSecs
-puts "Recording from #{toFormat(startTime)} to #{toFormat(endTime)}"
+puts "Recording from #{to_format(startTime)} to #{to_format(endTime)}"
 
 # Make a directory to store the temporary files
 dateStr = Date.today.iso8601
@@ -43,7 +43,7 @@ while Time.now <= endTime
   puts "Target Duration: #{targetDuration}"
 
   # Get the relevant URLs
-  urls = getUrls(blockResponse.body)
+  urls = get_urls(blockResponse.body)
   puts "Found URLS: #{urls}"
 
   # Walk through URLs and save ones we don't have
