@@ -27,8 +27,9 @@ startTime = Time.now
 endTime   = startTime + recordingDurationSecs
 puts "Recording from #{toFormat(startTime)} to #{toFormat(endTime)}"
 
-# Make a directory to store the files
-dirName = toFormat(startTime)
+# Make a directory to store the temporary files
+dateStr = Date.today.iso8601
+dirName = dateStr
 Dir.mkdir(dirName)
 
 # Keep going until we've recorded enough
@@ -68,11 +69,12 @@ puts "Done recording!"
 
 # Assemble everything into a single file
 filenames = Dir.glob(File.join(dirName, '*.aac'))
-outputFile = File.join(dirName, 'output.aac')
+outputFile = "#{dateStr}.aac"
 cmd = %{ffmpeg -i "concat:#{filenames.join('|')}" -c copy #{outputFile}}
 system(cmd)
 
-# Delete the parts that made up the whole
-filenames.each { |f| File.delete(f) }
+# Remove the temorary directory with all of its files
+cmd = %{rm -rf #{dirName}}
+system(cmd)
 
 puts "Done assembly and cleanup!"
