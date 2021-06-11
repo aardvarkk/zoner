@@ -45,7 +45,7 @@ while Time.now <= endTime
 
   # Walk through URLs and save ones we don't have
   urls.each do |url|
-    basename = url.scan(/CJZN-\w+\.aac/)
+    basename = File.basename(url)
     puts basename
 
     filename = File.join(dirName, basename)
