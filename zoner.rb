@@ -1,6 +1,7 @@
 # https://en.wikipedia.org/wiki/M3U
 
 require 'faraday'
+require './get_urls'
 
 <<-sh
 ruby zoner.rb 1800
@@ -11,10 +12,6 @@ targetDuration = nil
 
 def to_format(time)
   return time.utc.strftime('%Y%m%dT%H%M%SZ')
-end
-
-def get_urls(body)
-  return body.scan(/^(.*Z\.aac)$/).flatten
 end
 
 # Get a URL including session ID
