@@ -66,7 +66,7 @@ puts "Done recording!"
 
 # Assemble everything into a single file
 filenames = Dir.glob(File.join(dirName, '*.aac'))
-outputFile = "#{dateStr}.aac"
+outputFile = "#{File.join('output', dateStr)}.aac"
 cmd = %{ffmpeg -i "concat:#{filenames.join('|')}" -c copy #{outputFile}}
 system(cmd)
 
