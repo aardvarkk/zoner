@@ -59,7 +59,8 @@ while Time.now <= endTime
   end
 
   # Wait the target duration to check for a new file
-  sleep targetDuration
+  # Going to sleep for half of that time because it seems sometimes we miss whole segments
+  sleep targetDuration/2
 end
 
 puts "Done recording!"
