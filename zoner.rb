@@ -66,8 +66,9 @@ end
 puts "Done recording!"
 
 # Assemble everything into a single file
+# Choose .m4a because Clementine can play it that way
 filenames = Dir.glob(File.join(dirName, '*.aac'))
-outputFile = "#{File.join('output', dateStr)}.aac"
+outputFile = "#{File.join('output', dateStr)}.m4a"
 cmd = %{ffmpeg -i "concat:#{filenames.join('|')}" -c copy #{outputFile}}
 system(cmd)
 
