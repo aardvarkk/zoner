@@ -59,8 +59,8 @@ while Time.now <= endTime
   end
 
   # Wait the target duration to check for a new file
-  # Going to sleep for half of that time because it seems sometimes we miss whole segments
-  sleep targetDuration/2
+  # Go to sleep for a fraction of target duration so we don't miss segments if phase is off
+  sleep targetDuration/4
 end
 
 puts "Done recording!"
