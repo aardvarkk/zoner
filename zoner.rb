@@ -2,6 +2,10 @@
 
 require 'faraday'
 require './get_urls'
+require './stations'
+
+# Stations are defined in get_urls.rb
+STATION = CFUV_FM
 
 <<-sh
 ruby zoner.rb 1800
@@ -15,7 +19,7 @@ def to_format(time)
 end
 
 # Get a URL including session ID
-sessionIdResponse = Faraday.get('https://stream.jpbgdigital.com/CJZN/HEAAC/48k/playlist.m3u8')
+sessionIdResponse = Faraday.get(STATION)
 sessionIdUrl = sessionIdResponse.body.lines.last
 puts sessionIdUrl
 
@@ -40,7 +44,7 @@ while Time.now <= endTime
   puts "Target Duration: #{targetDuration}"
 
   # Get the relevant URLs
-  urls = get_urls(blockResponse.body)
+  urls = get_urls(blockResponse.body, STATION)
   puts "Found URLS: #{urls}"
 
   # Walk through URLs and save ones we don't have
