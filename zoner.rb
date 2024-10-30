@@ -72,8 +72,17 @@ puts "Done recording!"
 # Assemble everything into a single file
 # Choose .m4a because Clementine can play it that way
 filenames = Dir.glob(File.join(dirName, '*.aac'))
+
+# Make a filelist.txt containing all the files
+# For each filename, add a line in filelist.txt with `file 'filename'`
+File.open('filelist.txt', 'w') do |f|
+  filenames.each do |filename|
+    f.puts("file '#{filename}'")
+  end
+end
+
 outputFile = "#{File.join('output', dateStr)}.m4a"
-cmd = %{ffmpeg -i "concat:#{filenames.join('|')}" -c copy #{outputFile}}
+cmd = %{ffmpeg -f concat -i filelist.txt -c copy #{outputFile}}
 system(cmd)
 
 # Remove the temorary directory with all of its files
