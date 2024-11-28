@@ -33,6 +33,8 @@ dateStr = Date.today.iso8601
 dirName = dateStr
 Dir.mkdir(dirName)
 
+filenames = []
+
 # Keep going until we've recorded enough
 while Time.now <= endTime
   # Get the block info
@@ -59,6 +61,7 @@ while Time.now <= endTime
       puts "Getting #{filename}"
 
       File.write(filename, Faraday.get(url).body)
+      filenames << filename
     end
   end
 
@@ -68,10 +71,6 @@ while Time.now <= endTime
 end
 
 puts "Done recording!"
-
-# Assemble everything into a single file
-# Choose .m4a because Clementine can play it that way
-filenames = Dir.glob(File.join(dirName, '*.aac'))
 
 # Make a filelist.txt containing all the files
 # For each filename, add a line in filelist.txt with `file 'filename'`
